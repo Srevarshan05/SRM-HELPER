@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer - HELPER SRM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #2563eb, #4f46e5);
+            --white: #ffffff;
+            --black: #1f2937;
+            --dark-gray: #4b5563;
+            --light-gray: #f3f4f6;
+            --accent-blue: #3b82f6;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --radius-md: 0.375rem;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--light-gray);
+            color: var(--black);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+        }
+
+        /* Navigation Updates */
+        .navbar {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        .nav-brand i {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: var(--font-size-2xl);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--light-gray);
+            color: var(--accent-blue);
+        }
+
+        .nav-link.active {
+            background: var(--primary-gradient);
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+            
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            
+            .nav-link span {
+                display: none;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: var(--space-lg);
+        }
+
+        .timer-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .timer-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .timer-header p {
+            color: var(--dark-gray);
+            font-size: 1rem;
+        }
+
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            background: var(--white);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+        }
+
+        .timer-circle {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-background {
+            fill: none;
+            stroke: var(--light-gray);
+            stroke-width: 10;
+        }
+
+        .progress-ring-progress {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.35s;
+        }
+
+        .timer-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .timer-time {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .timer-label {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            margin: var(--space-sm) 0;
+        }
+
+        .timer-session {
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .control-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn {
+            background: var(--primary-gradient);
+            color: var(--white);
+        }
+
+        .start-btn:hover {
+            opacity: 0.9;
+        }
+
+        .pause-btn {
+            background: #f97316;
+            color: var(--white);
+        }
+
+        .pause-btn:hover {
+            opacity: 0.9;
+        }
+
+        .reset-btn {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        .reset-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .timer-stats {
+            margin-bottom: var(--space-lg);
+        }
+
+        .timer-stats h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .timer-tips {
+            margin-bottom: var(--space-lg);
+        }
+
+        .timer-tips h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .tip-card {
+            background: var(--white);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .tip-icon {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+        }
+
+        .tip-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .tip-content p {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>HELPER SRM</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="materials-simple.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Materials</span>
+                </a>
+                <a href="gpa-simple.html" class="nav-link">
+                    <i class="fas fa-calculator"></i>
+                    <span>GPA</span>
+                </a>
+                <a href="attendance-calculator.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="pomodoro-timer.html" class="nav-link active">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="ai-assistant.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Header -->
+            <div class="timer-header">
+                <h1><i class="fas fa-clock"></i> Pomodoro Timer</h1>
+                <p>Boost your productivity with focused study sessions and breaks</p>
+            </div>
+
+            <!-- Timer Container -->
+            <div class="timer-container">
+                <!-- Timer Display -->
+                <div class="timer-display">
+                    <div class="timer-circle">
+                        <svg class="progress-ring" width="300" height="300">
+                            <circle class="progress-ring-background" cx="150" cy="150" r="140"></circle>
+                            <circle class="progress-ring-progress" cx="150" cy="150" r="140"></circle>
+                        </svg>
+                        <div class="timer-content">
+                            <div class="timer-time" id="timerDisplay">25:00</div>
+                            <div class="timer-label" id="timerLabel">Focus Time</div>
+                            <div class="timer-session" id="sessionCount">Session 1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timer Controls -->
+                <div class="timer-controls">
+                    <button class="control-btn start-btn" id="startBtn">
+                        <i class="fas fa-play"></i>
+                        <span>Start</span>
+                    </button>
+                    <button class="control-btn pause-btn" id="pauseBtn" style="display: none;">
+                        <i class="fas fa-pause"></i>
+                        <span>Pause</span>
+                    </button>
+                    <button class="control-btn reset-btn" id="resetBtn">
+                        <i class="fas fa-refresh"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
+            </div>
+
+           
+
+            <!-- Tips -->
+            <div class="timer-tips">
+                <h3>Pomodoro Technique Tips</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Stay Focused</h4>
+                            <p>During focus sessions, avoid all distractions. Turn off notifications and focus solely on your task.</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-pause-circle"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Take Real Breaks</h4>
+                            <p>Use break time to rest your mind. Step away from your workspace and do something relaxing.</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-list-check"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Plan Your Tasks</h4>
+                            <p>Before starting, decide what you want to accomplish in each 25-minute session.</p>
+                        </div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="tip-content">
+                            <h4>Track Progress</h4>
+                            <p>Keep track of completed sessions to see your productivity patterns and improve over time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Howler.js sound
+        const alarmSound = new Howl({
+            src: ['https://www.soundjay.com/buttons/sounds/beep-01a.mp3'],
+            volume: 0.5
+        });
+
+        // Timer variables
+        let timerInterval = null;
+        let currentTime = 25 * 60; // 25 minutes in seconds
+        let isRunning = false;
+        let isFocusSession = true;
+        let sessionCount = 1;
+        let completedSessions = 0;
+        let totalFocusTime = 0;
+        let totalBreaks = 0;
+        const focusDuration = 25 * 60; // 25 minutes
+        const breakDuration = 5 * 60; // 5 minutes
+        const longBreakDuration = 15 * 60; // 15 minutes after 4 sessions
+
+        // DOM Elements
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerLabel = document.getElementById('timerLabel');
+        const sessionDisplay = document.getElementById('sessionCount');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const completedSessionsDisplay = document.getElementById('completedSessions');
+        const totalFocusTimeDisplay = document.getElementById('totalFocusTime');
+        const totalBreaksDisplay = document.getElementById('totalBreaks');
+        const productivityDisplay = document.getElementById('productivity');
+        const progressRing = document.querySelector('.progress-ring-progress');
+
+        // Initialize progress ring
+        const radius = progressRing.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+        progressRing.style.strokeDashoffset = circumference;
+
+        // Format time as MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Update progress ring
+        function updateProgressRing(timeLeft, totalTime) {
+            const offset = circumference - (timeLeft / totalTime) * circumference;
+            progressRing.style.strokeDashoffset = offset;
+        }
+
+        // Update timer display and progress
+        function updateTimer() {
+            timerDisplay.textContent = formatTime(currentTime);
+            const totalTime = isFocusSession ? focusDuration : (sessionCount % 4 === 0 ? longBreakDuration : breakDuration);
+            updateProgressRing(currentTime, totalTime);
+
+            if (currentTime <= 0) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                alarmSound.play();
+
+                if (isFocusSession) {
+                    completedSessions++;
+                    totalFocusTime += focusDuration;
+                    totalBreaks++;
+                    isFocusSession = false;
+                    currentTime = sessionCount % 4 === 0 ? longBreakDuration : breakDuration;
+                    timerLabel.textContent = sessionCount % 4 === 0 ? 'Long Break' : 'Break Time';
+                } else {
+                    sessionCount++;
+                    isFocusSession = true;
+                    currentTime = focusDuration;
+                    timerLabel.textContent = 'Focus Time';
+                }
+
+                updateStats();
+                sessionDisplay.textContent = `Session ${sessionCount}`;
+                startBtn.style.display = 'inline-flex';
+                pauseBtn.style.display = 'none';
+                timerDisplay.textContent = formatTime(currentTime);
+                updateProgressRing(currentTime, currentTime);
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            completedSessionsDisplay.textContent = completedSessions;
+            const hours = Math.floor(totalFocusTime / 3600);
+            const minutes = Math.floor((totalFocusTime % 3600) / 60);
+            totalFocusTimeDisplay.textContent = `${hours}h ${minutes}m`;
+            totalBreaksDisplay.textContent = totalBreaks;
+            const productivity = completedSessions ? Math.min(100, (completedSessions / (sessionCount - 1)) * 100).toFixed(0) : 0;
+            productivityDisplay.textContent = `${productivity}%`;
+        }
+
+        // Start timer
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                startBtn.style.display = 'none';
+                pauseBtn.style.display = 'inline-flex';
+                timerInterval = setInterval(() => {
+                    currentTime--;
+                    updateTimer();
+                }, 1000);
+            }
+        }
+
+        // Pause timer
+        function pauseTimer() {
+            if (isRunning) {
+                isRunning = false;
+                clearInterval(timerInterval);
+                startBtn.style.display = 'inline-flex';
+                pauseBtn.style.display = 'none';
+            }
+        }
+
+        // Reset timer
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            currentTime = focusDuration;
+            isFocusSession = true;
+            sessionCount = 1;
+            completedSessions = 0;
+            totalFocusTime = 0;
+            totalBreaks = 0;
+            timerDisplay.textContent = formatTime(currentTime);
+            timerLabel.textContent = 'Focus Time';
+            sessionDisplay.textContent = 'Session 1';
+            startBtn.style.display = 'inline-flex';
+            pauseBtn.style.display = 'none';
+            updateProgressRing(currentTime, focusDuration);
+            updateStats();
+        }
+
+        // Event listeners
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Initialize display
+        timerDisplay.textContent = formatTime(currentTime);
+        updateProgressRing(currentTime, focusDuration);
+        updateStats();
+    </script>
+</body>
+</html>

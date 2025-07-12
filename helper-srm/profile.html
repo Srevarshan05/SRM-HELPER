@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - HELPER SRM</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>HELPER SRM</span>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="semesters.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Materials</span>
+                </a>
+                <a href="gpa-calculator.html" class="nav-link">
+                    <i class="fas fa-calculator"></i>
+                    <span>GPA</span>
+                </a>
+                <a href="attendance-calculator.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="study-timer.html" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="chatbot.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </div>
+            <div class="nav-user">
+                <div class="user-dropdown">
+                    <button class="user-btn" onclick="toggleUserMenu()">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userName">Loading...</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-menu" id="userMenu">
+                        <a href="profile.html" class="user-menu-item active">
+                            <i class="fas fa-user-circle"></i>
+                            Profile
+                        </a>
+                        <a href="#" class="user-menu-item" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <div class="header-text">
+                        <h1><i class="fas fa-user-circle"></i> My Profile</h1>
+                        <p>Manage your account settings and personal information</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="resetProfile()">
+                            <i class="fas fa-undo"></i>
+                            Reset Changes
+                        </button>
+                        <button class="btn btn-primary" onclick="saveProfile()">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <!-- Profile Overview -->
+                <div class="profile-overview">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <div class="avatar-container">
+                                <div class="avatar-image" id="avatarImage">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <button class="avatar-upload-btn" onclick="uploadAvatar()">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profileName">Student Name</h2>
+                            <p id="profileRegNumber">Registration Number</p>
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value" id="profileGPA">0.00</span>
+                                    <span class="stat-label">Current GPA</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="profileCredits">0</span>
+                                    <span class="stat-label">Total Credits</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value" id="profileSemester">1</span>
+                                    <span class="stat-label">Current Semester</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Forms -->
+                <div class="profile-forms">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-user"></i> Personal Information</h3>
+                            <p>Update your personal details</p>
+                        </div>
+                        <div class="form-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" id="fullName" placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="registerNumber">Registration Number</label>
+                                    <input type="text" id="registerNumber" placeholder="Enter registration number" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" placeholder="Enter your email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" placeholder="Enter your phone number">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dateOfBirth">Date of Birth</label>
+                                    <input type="date" id="dateOfBirth">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender">
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-graduation-cap"></i> Academic Information</h3>
+                            <p>Update your academic details</p>
+                        </div>
+                        <div class="form-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="currentSemester">Current Semester</label>
+                                    <select id="currentSemester">
+                                        <option value="1">Semester 1</option>
+                                        <option value="2">Semester 2</option>
+                                        <option value="3">Semester 3</option>
+                                        <option value="4">Semester 4</option>
+                                        <option value="5">Semester 5</option>
+                                        <option value="6">Semester 6</option>
+                                        <option value="7">Semester 7</option>
+                                        <option value="8">Semester 8</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="branch">Branch/Department</label>
+                                    <select id="branch">
+                                        <option value="">Select Branch</option>
+                                        <option value="cse">Computer Science and Engineering</option>
+                                        <option value="it">Information Technology</option>
+                                        <option value="ece">Electronics and Communication Engineering</option>
+                                        <option value="eee">Electrical and Electronics Engineering</option>
+                                        <option value="mech">Mechanical Engineering</option>
+                                        <option value="civil">Civil Engineering</option>
+                                        <option value="biotech">Biotechnology</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="yearOfAdmission">Year of Admission</label>
+                                    <input type="number" id="yearOfAdmission" min="2020" max="2030" placeholder="2024">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expectedGraduation">Expected Graduation</label>
+                                    <input type="number" id="expectedGraduation" min="2024" max="2034" placeholder="2028">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-cog"></i> Account Settings</h3>
+                            <p>Manage your account preferences</p>
+                        </div>
+                        <div class="form-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword" placeholder="Enter current password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="newPassword" placeholder="Enter new password">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="theme">Theme Preference</label>
+                                    <select id="theme">
+                                        <option value="light">Light Theme</option>
+                                        <option value="dark">Dark Theme</option>
+                                        <option value="auto">Auto (System)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-sliders-h"></i> Preferences</h3>
+                            <p>Customize your experience</p>
+                        </div>
+                        <div class="form-content">
+                            <div class="preferences-grid">
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Email Notifications</h4>
+                                        <p>Receive updates about new materials and features</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="emailNotifications" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Study Reminders</h4>
+                                        <p>Get reminders for study sessions and deadlines</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="studyReminders" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Auto-save Data</h4>
+                                        <p>Automatically save your GPA and attendance data</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="autoSave" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="preference-item">
+                                    <div class="preference-info">
+                                        <h4>Analytics</h4>
+                                        <p>Help improve the platform by sharing usage data</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="analytics">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="form-section danger-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                            <p>Irreversible actions - proceed with caution</p>
+                        </div>
+                        <div class="form-content">
+                            <div class="danger-actions">
+                                <div class="danger-item">
+                                    <div class="danger-info">
+                                        <h4>Clear All Data</h4>
+                                        <p>Remove all your saved GPA, attendance, and preference data</p>
+                                    </div>
+                                    <button class="btn btn-danger" onclick="clearAllData()">
+                                        <i class="fas fa-trash"></i>
+                                        Clear Data
+                                    </button>
+                                </div>
+                                <div class="danger-item">
+                                    <div class="danger-info">
+                                        <h4>Delete Account</h4>
+                                        <p>Permanently delete your account and all associated data</p>
+                                    </div>
+                                    <button class="btn btn-danger" onclick="deleteAccount()">
+                                        <i class="fas fa-user-times"></i>
+                                        Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/profile.js"></script>
+</body>
+</html>

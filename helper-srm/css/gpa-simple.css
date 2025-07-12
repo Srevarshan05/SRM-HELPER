@@ -1,0 +1,512 @@
+/* Simple GPA Calculator Styles */
+.main-content {
+    padding: 2rem 0;
+    min-height: calc(100vh - 80px);
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Header */
+.calculator-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+    background: var(--white);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.calculator-header h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+}
+
+.calculator-header h1 i {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.calculator-header p {
+    font-size: var(--font-size-lg);
+    color: var(--dark-gray);
+}
+
+/* GPA Calculator */
+.gpa-calculator {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+}
+
+/* Calculator Inputs */
+.calculator-inputs {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.input-header {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--medium-gray);
+}
+
+.input-label {
+    font-weight: 600;
+    color: var(--black);
+    text-align: center;
+    font-size: var(--font-size-base);
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr auto;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+    align-items: center;
+}
+
+.input-row:hover {
+    background: var(--light-gray);
+}
+
+/* Add More Section */
+.add-more-section {
+    text-align: center;
+    margin: var(--space-lg) 0;
+}
+
+.add-more-btn {
+    background: var(--success-gradient);
+    color: var(--white);
+    border: none;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0 auto;
+    box-shadow: var(--shadow-md);
+}
+
+.add-more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.add-more-btn:active {
+    transform: translateY(0);
+}
+
+/* Remove Row Button */
+.remove-row-btn {
+    background: var(--secondary-gradient);
+    color: var(--white);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+}
+
+.remove-row-btn:hover {
+    background: #e74c3c;
+    transform: scale(1.1);
+}
+
+.remove-row-btn:active {
+    transform: scale(0.95);
+}
+
+/* Hide remove button for first 6 rows */
+.input-row[data-row="1"] .remove-row-btn,
+.input-row[data-row="2"] .remove-row-btn,
+.input-row[data-row="3"] .remove-row-btn,
+.input-row[data-row="4"] .remove-row-btn,
+.input-row[data-row="5"] .remove-row-btn,
+.input-row[data-row="6"] .remove-row-btn {
+    display: none;
+}
+
+/* Adjust grid for rows without remove button */
+.input-row[data-row="1"],
+.input-row[data-row="2"],
+.input-row[data-row="3"],
+.input-row[data-row="4"],
+.input-row[data-row="5"],
+.input-row[data-row="6"] {
+    grid-template-columns: 80px 1fr 1fr;
+}
+
+.subject-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+}
+
+.credits-select,
+.grade-select {
+    padding: var(--space-md);
+    border: 2px solid var(--medium-gray);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    background: var(--white);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.credits-select:focus,
+.grade-select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.credits-select:hover,
+.grade-select:hover {
+    border-color: var(--accent-blue);
+}
+
+/* Calculator Result */
+.calculator-result {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.result-card {
+    background: var(--primary-gradient);
+    color: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.result-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-lg);
+    opacity: 0.9;
+}
+
+.result-content h2 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    opacity: 0.9;
+}
+
+.gpa-value {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.gpa-grade {
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.clear-btn {
+    background: var(--secondary-gradient);
+    color: var(--white);
+    border: none;
+    padding: var(--space-lg) var(--space-xl);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    box-shadow: var(--shadow-md);
+}
+
+.clear-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.clear-btn:active {
+    transform: translateY(0);
+}
+
+/* Grade Reference */
+.grade-reference {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.grade-reference h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--black);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.grade-scale {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+.grade-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--light-gray);
+    transition: all 0.3s ease;
+}
+
+.grade-item:hover {
+    background: var(--medium-gray);
+    transform: translateX(4px);
+}
+
+.grade-letter {
+    width: 40px;
+    height: 40px;
+    background: var(--success-gradient);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+}
+
+.grade-points {
+    font-weight: 600;
+    color: var(--black);
+    min-width: 80px;
+}
+
+.grade-range {
+    color: var(--dark-gray);
+    font-size: var(--font-size-sm);
+}
+
+/* Navigation Updates */
+.navbar {
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+}
+
+.nav-brand i {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: var(--font-size-2xl);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: var(--light-gray);
+    color: var(--accent-blue);
+}
+
+.nav-link.active {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .gpa-calculator {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .calculator-result {
+        flex-direction: row;
+        align-items: stretch;
+    }
+    
+    .result-card {
+        flex: 1;
+    }
+    
+    .clear-btn {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-header,
+    .input-row {
+        grid-template-columns: 60px 1fr 1fr;
+        gap: var(--space-sm);
+    }
+    
+    .subject-number {
+        width: 40px;
+        height: 40px;
+        font-size: var(--font-size-base);
+    }
+    
+    .calculator-result {
+        flex-direction: column;
+    }
+    
+    .gpa-value {
+        font-size: 3rem;
+    }
+    
+    .grade-scale {
+        grid-template-columns: 1fr;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+    }
+    
+    .nav-link span {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: var(--space-lg) 0;
+    }
+    
+    .calculator-header,
+    .calculator-inputs,
+    .grade-reference {
+        padding: var(--space-lg);
+    }
+    
+    .calculator-header h1 {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .input-header,
+    .input-row {
+        grid-template-columns: 50px 1fr 1fr;
+    }
+    
+    .subject-number {
+        width: 35px;
+        height: 35px;
+        font-size: var(--font-size-sm);
+    }
+    
+    .credits-select,
+    .grade-select {
+        padding: var(--space-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    .gpa-value {
+        font-size: 2.5rem;
+    }
+}
+
+/* Animation for GPA result */
+@keyframes gpaUpdate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.gpa-value.updated {
+    animation: gpaUpdate 0.5s ease-in-out;
+}

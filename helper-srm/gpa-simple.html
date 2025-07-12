@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator - HELPER SRM</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gpa-simple.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>HELPER SRM</span>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="materials-simple.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Materials</span>
+                </a>
+                <a href="gpa-simple.html" class="nav-link active">
+                    <i class="fas fa-calculator"></i>
+                    <span>GPA</span>
+                </a>
+                <a href="attendance-calculator.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="pomodoro-timer.html" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="ai-assistant.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Header -->
+            <div class="calculator-header">
+                <h1><i class="fas fa-calculator"></i> GPA Calculator</h1>
+                <p>Enter your grades and credits to calculate your GPA instantly</p>
+            </div>
+
+            <!-- GPA Calculator -->
+            <div class="gpa-calculator">
+                <!-- Input Section -->
+                <div class="calculator-inputs">
+                    <div class="input-header">
+                        <div class="input-label">Subject</div>
+                        <div class="input-label">Credits</div>
+                        <div class="input-label">Grade</div>
+                    </div>
+                    
+                    <!-- 6 Input Rows -->
+                    <div class="input-row" data-row="1">
+                        <div class="subject-number">1</div>
+                        <select class="credits-select" onchange="calculateGPA()">
+                            <option value="">Credits</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <select class="grade-select" onchange="calculateGPA()">
+                            <option value="">Grade</option>
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="5">C (5)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row" data-row="2">
+                        <div class="subject-number">2</div>
+                        <select class="credits-select" onchange="calculateGPA()">
+                            <option value="">Credits</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <select class="grade-select" onchange="calculateGPA()">
+                            <option value="">Grade</option>
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="5">C (5)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row" data-row="3">
+                        <div class="subject-number">3</div>
+                        <select class="credits-select" onchange="calculateGPA()">
+                            <option value="">Credits</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <select class="grade-select" onchange="calculateGPA()">
+                            <option value="">Grade</option>
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="5">C (5)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row" data-row="4">
+                        <div class="subject-number">4</div>
+                        <select class="credits-select" onchange="calculateGPA()">
+                            <option value="">Credits</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <select class="grade-select" onchange="calculateGPA()">
+                            <option value="">Grade</option>
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="5">C (5)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row" data-row="5">
+                        <div class="subject-number">5</div>
+                        <select class="credits-select" onchange="calculateGPA()">
+                            <option value="">Credits</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <select class="grade-select" onchange="calculateGPA()">
+                            <option value="">Grade</option>
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="5">C (5)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row" data-row="6">
+                        <div class="subject-number">6</div>
+                        <select class="credits-select" onchange="calculateGPA()">
+                            <option value="">Credits</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        <select class="grade-select" onchange="calculateGPA()">
+                            <option value="">Grade</option>
+                            <option value="10">O (10)</option>
+                            <option value="9">A+ (9)</option>
+                            <option value="8">A (8)</option>
+                            <option value="7">B+ (7)</option>
+                            <option value="6">B (6)</option>
+                            <option value="5">C (5)</option>
+                            <option value="0">F (0)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Add More Button -->
+                <div class="add-more-section">
+                    <button class="add-more-btn" onclick="addMoreRow()">
+                        <i class="fas fa-plus"></i>
+                        Add More Subject
+                    </button>
+                </div>
+
+                <!-- Result Section -->
+                <div class="calculator-result">
+                    <div class="result-card">
+                        <div class="result-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="result-content">
+                            <h2>Your GPA</h2>
+                            <div class="gpa-value" id="gpaResult">0.00</div>
+                            <div class="gpa-grade" id="gpaGrade">Enter grades to calculate</div>
+                        </div>
+                    </div>
+                    
+                    <button class="clear-btn" onclick="clearAll()">
+                        <i class="fas fa-refresh"></i>
+                        Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grade Scale Reference -->
+            <div class="grade-reference">
+                <h3>Grade Scale Reference</h3>
+                <div class="grade-scale">
+                    <div class="grade-item">
+                        <span class="grade-letter">O</span>
+                        <span class="grade-points">10 Points</span>
+                        <span class="grade-range">90-100%</span>
+                    </div>
+                    <div class="grade-item">
+                        <span class="grade-letter">A+</span>
+                        <span class="grade-points">9 Points</span>
+                        <span class="grade-range">80-89%</span>
+                    </div>
+                    <div class="grade-item">
+                        <span class="grade-letter">A</span>
+                        <span class="grade-points">8 Points</span>
+                        <span class="grade-range">70-79%</span>
+                    </div>
+                    <div class="grade-item">
+                        <span class="grade-letter">B+</span>
+                        <span class="grade-points">7 Points</span>
+                        <span class="grade-range">60-69%</span>
+                    </div>
+                    <div class="grade-item">
+                        <span class="grade-letter">B</span>
+                        <span class="grade-points">6 Points</span>
+                        <span class="grade-range">55-59%</span>
+                    </div>
+                    <div class="grade-item">
+                        <span class="grade-letter">C</span>
+                        <span class="grade-points">5 Points</span>
+                        <span class="grade-range">50-54%</span>
+                    </div>
+                    <div class="grade-item">
+                        <span class="grade-letter">F</span>
+                        <span class="grade-points">0 Points</span>
+                        <span class="grade-range">Below 50%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/gpa-simple.js"></script>
+</body>
+</html>
