@@ -3,19 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GPA Calculator - HELPER SRM</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/gpa-simple.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>GPA Calculator - SRM Verse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --white: #ffffff;
+            --black: #0a0a0a;
+            --dark-gray: #2a2a2a;
+            --light-gray: #f8fafc;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --hero-gradient: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #c026d3 75%, #e11d48 100%);
+            --card-gradient: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --glow-blue: 0 0 20px rgba(59, 130, 246, 0.5);
+            --glow-purple: 0 0 20px rgba(139, 92, 246, 0.5);
+            --glow-pink: 0 0 20px rgba(236, 72, 153, 0.5);
+            --glow-cyan: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0f23;
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at top, #1e1b4b 0%, #0f0f23 50%, #000000 100%);
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 2.5s; }
+
+        /* Glowing orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .glow-orb-1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #3b82f6, transparent);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .glow-orb-2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #8b5cf6, transparent);
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .glow-orb-3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ec4899, transparent);
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-brand i {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Calculator Header */
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calculator-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .calculator-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* GPA Calculator */
+        .gpa-calculator {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gpa-calculator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .gpa-calculator:hover::before {
+            left: 100%;
+        }
+
+        .gpa-calculator:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: var(--glow-blue);
+        }
+
+        .calculator-inputs {
+            margin-bottom: 2rem;
+        }
+
+        .input-header {
+            display: grid;
+            grid-template-columns: 60px 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+        }
+
+        .input-label {
+            font-weight: 600;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 60px 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .subject-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto;
+        }
+
+        .credits-select, .grade-select {
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .credits-select:focus, .grade-select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .credits-select option, .grade-select option {
+            background: #1a1a2e;
+            color: var(--white);
+        }
+
+        .add-more-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .add-more-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-more-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .calculator-result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .result-card {
+            background: var(--primary-gradient);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            min-width: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--glow-blue);
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            opacity: 0.9;
+        }
+
+        .result-content h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gpa-value {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .gpa-grade {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .clear-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .clear-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+            transform: translateY(-2px);
+        }
+
+        /* Grade Reference */
+        .grade-reference {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .grade-reference::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .grade-reference:hover::before {
+            left: 100%;
+        }
+
+        .grade-reference:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: var(--glow-blue);
+        }
+
+        .grade-reference h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .grade-scale {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .grade-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .grade-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .grade-letter {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .grade-points {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .grade-range {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+            }
+
+            .nav-brand {
+                margin-bottom: 1rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                justify-content: center;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+
+            .input-header,
+            .input-row {
+                grid-template-columns: 50px 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            .grade-scale {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
                 <i class="fas fa-graduation-cap"></i>
-                <span>HELPER SRM</span>
+                <span>SRM Verse</span>
             </div>
             <div class="nav-menu">
                 <a href="dashboard.html" class="nav-link">
@@ -29,10 +593,6 @@
                 <a href="gpa-simple.html" class="nav-link active">
                     <i class="fas fa-calculator"></i>
                     <span>GPA</span>
-                </a>
-                <a href="attendance-calculator.html" class="nav-link">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>Attendance</span>
                 </a>
                 <a href="pomodoro-timer.html" class="nav-link">
                     <i class="fas fa-clock"></i>

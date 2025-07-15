@@ -1,6 +1,103 @@
-/* Simple GPA Calculator Styles */
+/* CSS Variables */
+:root {
+    --white: #ffffff;
+    --black: #1a1a1a;
+    --dark-gray: #4a4a4a;
+    --light-gray: #f1f3f5;
+    --medium-gray: #e9ecef;
+    --accent-blue: #007bff;
+    --primary-gradient: linear-gradient(90deg, #007bff 0%, #00c4b4 100%);
+    --success-gradient: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 1.875rem;
+    --font-size-3xl: 2.25rem;
+    --font-family: 'Inter', sans-serif;
+}
+
+/* Navigation */
+.navbar {
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--black);
+    text-decoration: none;
+}
+
+.nav-brand i {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: var(--font-size-2xl);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: var(--light-gray);
+    color: var(--accent-blue);
+}
+
+.nav-link.active {
+    background: var(--primary-gradient);
+    color: var(--white);
+}
+
+/* Main Content */
 .main-content {
-    padding: 2rem 0;
+    padding: var(--space-lg) 0;
     min-height: calc(100vh - 80px);
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
@@ -10,13 +107,13 @@
     text-align: center;
     margin-bottom: var(--space-2xl);
     background: var(--white);
-    padding: var(--space-2xl);
+    padding: var(--space-xl);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lg);
 }
 
 .calculator-header h1 {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
     font-weight: 700;
     color: var(--black);
     margin-bottom: var(--space-md);
@@ -34,7 +131,7 @@
 }
 
 .calculator-header p {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     color: var(--dark-gray);
 }
 
@@ -50,7 +147,7 @@
 .calculator-inputs {
     background: var(--white);
     border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
+    padding: var(--space-xl);
     box-shadow: var(--shadow-lg);
 }
 
@@ -120,8 +217,8 @@
 
 /* Remove Row Button */
 .remove-row-btn {
-    background: var(--secondary-gradient);
-    color: var(--white);
+    background: var(--medium-gray);
+    color: var(--dark-gray);
     border: none;
     width: 35px;
     height: 35px;
@@ -135,7 +232,8 @@
 }
 
 .remove-row-btn:hover {
-    background: #e74c3c;
+    background: var(--dark-gray);
+    color: var(--white);
     transform: scale(1.1);
 }
 
@@ -211,7 +309,7 @@
     background: var(--primary-gradient);
     color: var(--white);
     border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
+    padding: var(--space-xl);
     text-align: center;
     box-shadow: var(--shadow-lg);
     transition: all 0.3s ease;
@@ -223,36 +321,36 @@
 }
 
 .result-icon {
-    font-size: 3rem;
+    font-size: var(--font-size-xl);
     margin-bottom: var(--space-lg);
     opacity: 0.9;
 }
 
 .result-content h2 {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     margin-bottom: var(--space-md);
     opacity: 0.9;
 }
 
 .gpa-value {
-    font-size: 4rem;
+    font-size: var(--font-size-2xl);
     font-weight: 700;
     margin-bottom: var(--space-sm);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .gpa-grade {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: 500;
     opacity: 0.9;
 }
 
 .clear-btn {
-    background: var(--secondary-gradient);
-    color: var(--white);
+    background: var(--medium-gray);
+    color: var(--dark-gray);
     border: none;
-    padding: var(--space-lg) var(--space-xl);
+    padding: var(--space-md) var(--space-xl);
     border-radius: var(--radius-lg);
     font-family: var(--font-family);
     font-size: var(--font-size-base);
@@ -267,8 +365,9 @@
 }
 
 .clear-btn:hover {
+    background: var(--dark-gray);
+    color: var(--white);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
 }
 
 .clear-btn:active {
@@ -279,16 +378,16 @@
 .grade-reference {
     background: var(--white);
     border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
+    padding: var(--space-xl);
     box-shadow: var(--shadow-lg);
 }
 
 .grade-reference h3 {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--black);
     text-align: center;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg);
 }
 
 .grade-scale {
@@ -336,71 +435,6 @@
     font-size: var(--font-size-sm);
 }
 
-/* Navigation Updates */
-.navbar {
-    background: var(--white);
-    box-shadow: var(--shadow-md);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-}
-
-.nav-brand {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-    color: var(--black);
-    text-decoration: none;
-}
-
-.nav-brand i {
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: var(--font-size-2xl);
-}
-
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-}
-
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    text-decoration: none;
-    color: var(--dark-gray);
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.nav-link:hover {
-    background: var(--light-gray);
-    color: var(--accent-blue);
-}
-
-.nav-link.active {
-    background: var(--primary-gradient);
-    color: var(--white);
-}
-
 /* Responsive Design */
 @media (max-width: 1024px) {
     .gpa-calculator {
@@ -423,6 +457,35 @@
 }
 
 @media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: var(--space-sm) var(--space-lg);
+    }
+
+    .nav-brand {
+        margin-bottom: var(--space-sm);
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        justify-content: center;
+    }
+
+    .nav-link {
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--font-size-sm);
+    }
+
+    .nav-link span {
+        display: none;
+    }
+
+    .nav-link i {
+        font-size: var(--font-size-base);
+    }
+
     .input-header,
     .input-row {
         grid-template-columns: 60px 1fr 1fr;
@@ -440,38 +503,66 @@
     }
     
     .gpa-value {
-        font-size: 3rem;
+        font-size: var(--font-size-xl);
     }
     
     .grade-scale {
         grid-template-columns: 1fr;
     }
     
-    .nav-menu {
-        flex-wrap: wrap;
-        gap: var(--space-xs);
-    }
-    
-    .nav-link span {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
     .main-content {
-        padding: var(--space-lg) 0;
+        padding: var(--space-md) 0;
     }
     
     .calculator-header,
     .calculator-inputs,
     .grade-reference {
-        padding: var(--space-lg);
+        padding: var(--space-md);
     }
     
     .calculator-header h1 {
-        font-size: var(--font-size-2xl);
+        font-size: var(--font-size-xl);
     }
     
+    .calculator-header p {
+        font-size: var(--font-size-sm);
+    }
+    
+    .result-icon {
+        font-size: var(--font-size-lg);
+    }
+    
+    .result-content h2 {
+        font-size: var(--font-size-base);
+    }
+    
+    .gpa-grade {
+        font-size: var(--font-size-sm);
+    }
+    
+    .grade-reference h3 {
+        font-size: var(--font-size-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .nav-brand {
+        font-size: var(--font-size-lg);
+    }
+
+    .nav-brand i {
+        font-size: var(--font-size-xl);
+    }
+
+    .nav-link {
+        padding: var(--space-xs) var(--space-sm);
+        font-size: var(--font-size-sm);
+    }
+
     .input-header,
     .input-row {
         grid-template-columns: 50px 1fr 1fr;
@@ -490,7 +581,27 @@
     }
     
     .gpa-value {
-        font-size: 2.5rem;
+        font-size: var(--font-size-lg);
+    }
+    
+    .calculator-header,
+    .calculator-inputs,
+    .grade-reference {
+        padding: var(--space-sm);
+    }
+    
+    .calculator-header h1 {
+        font-size: var(--font-size-lg);
+    }
+    
+    .add-more-btn,
+    .clear-btn {
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--font-size-sm);
+    }
+    
+    .result-icon {
+        font-size: var(--font-size-base);
     }
 }
 

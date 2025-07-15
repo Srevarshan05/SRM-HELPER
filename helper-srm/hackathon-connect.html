@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Connect - SRM Verse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --white: #ffffff;
+            --black: #0a0a0a;
+            --dark-gray: #2a2a2a;
+            --light-gray: #f8fafc;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --hero-gradient: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #c026d3 75%, #e11d48 100%);
+            --card-gradient: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --glow-blue: 0 0 20px rgba(59, 130, 246, 0.5);
+            --glow-purple: 0 0 20px rgba(139, 92, 246, 0.5);
+            --glow-pink: 0 0 20px rgba(236, 72, 153, 0.5);
+            --glow-cyan: 0 0 20px rgba(6, 182, 212, 0.5);
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 1.875rem;
+            --font-size-3xl: 2.25rem;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f0f23;
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at top, #1e1b4b 0%, #0f0f23 50%, #000000 100%);
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 2.5s; }
+
+        /* Glowing orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .glow-orb-1 {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #3b82f6, transparent);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .glow-orb-2 {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #8b5cf6, transparent);
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .glow-orb-3 {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ec4899, transparent);
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-lg);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-brand i {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Hero Section with Animated Gradient */
+        .hero-section {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #007bff, #00c4b4);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--white);
+            padding: var(--space-2xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            animation: floatingBubbles 20s ease-in-out infinite;
+        }
+
+        @keyframes floatingBubbles {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: var(--font-size-3xl);
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-xl);
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+        }
+
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--white);
+            color: var(--accent-blue);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+            box-shadow: var(--shadow-xl);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .telegram-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .telegram-btn:hover::before {
+            left: 100%;
+        }
+
+        .telegram-btn:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+        }
+
+        .telegram-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .telegram-btn i {
+            font-size: var(--font-size-xl);
+            color: #0088cc;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-btn:hover i {
+            transform: rotate(360deg) scale(1.1);
+            color: #0066aa;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: var(--glow-blue);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        .section:hover .section-title::after {
+            width: 150px;
+        }
+
+        .section-title i {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .section:hover .section-title i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .section-content {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .benefit-card:hover::before {
+            left: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: var(--glow-blue);
+        }
+
+        .benefit-card:nth-child(1) .benefit-icon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+        }
+
+        .benefit-card:nth-child(2) .benefit-icon {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        }
+
+        .benefit-card:nth-child(3) .benefit-icon {
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+        }
+
+        .benefit-card:nth-child(4) .benefit-icon {
+            background: linear-gradient(135deg, #06b6d4, #10b981);
+        }
+
+        .benefit-card:nth-child(5) .benefit-icon {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+        }
+
+        .benefit-card:nth-child(6) .benefit-icon {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            transition: all 0.4s ease;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--glow-blue);
+        }
+
+        .benefit-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* First Timer Section */
+        .first-timer {
+            background: linear-gradient(135deg, #007bff 0%, #00c4b4 50%, #28a745 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .first-timer .section-title {
+            color: var(--white);
+        }
+
+        .first-timer .section-title i {
+            color: var(--white);
+            -webkit-text-fill-color: var(--white);
+        }
+
+        .first-timer .section-content {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--font-size-lg);
+        }
+
+        .intro-text {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-xl);
+            font-weight: 500;
+        }
+
+        .guidance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+        }
+
+        .guidance-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .guidance-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .guidance-icon {
+            font-size: var(--font-size-3xl);
+            margin-bottom: var(--space-md);
+            color: var(--white);
+        }
+
+        .guidance-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--white);
+        }
+
+        .guidance-description {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .closing-text {
+            font-size: var(--font-size-lg);
+            margin-top: var(--space-xl);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-xl) 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .stat-item:hover::before {
+            left: 100%;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: var(--font-size-3xl);
+            font-weight: 800;
+            color: var(--white);
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number {
+            transform: scale(1.1);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-base);
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: var(--space-xs);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--success-gradient);
+            color: var(--white);
+            text-align: center;
+            padding: var(--space-2xl);
+            border-radius: var(--radius-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .cta-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+
+        .cta-description {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--space-xl);
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--white);
+            color: var(--accent-blue);
+            padding: var(--space-lg) var(--space-2xl);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+            box-shadow: var(--shadow-xl);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+        }
+
+        .cta-btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .cta-btn i {
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover i {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: var(--space-sm);
+            }
+
+            .nav-brand {
+                margin-bottom: var(--space-sm);
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                justify-content: center;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: var(--font-size-2xl);
+            }
+
+            .hero-subtitle {
+                font-size: var(--font-size-base);
+            }
+
+            .section {
+                padding: var(--space-md);
+            }
+
+            .section-title {
+                font-size: var(--font-size-xl);
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: var(--space-xl) 0;
+            }
+
+            .telegram-btn, .cta-btn {
+                padding: var(--space-sm) var(--space-lg);
+                font-size: var(--font-size-base);
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>SRM Verse</span>
+            </div>
+            <div class="nav-menu">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="materials-simple.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Materials</span>
+                </a>
+                <a href="gpa-simple.html" class="nav-link">
+                    <i class="fas fa-calculator"></i>
+                    <span>GPA</span>
+                </a>
+                <a href="pomodoro-timer.html" class="nav-link">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="ai-assistant.html" class="nav-link">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Assistant</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">🚀 Hackathon Connect</h1>
+            <p class="hero-subtitle">Join our community of innovators and get mentored by expert seniors who've conquered hackathons!</p>
+            <a href="https://t.me/+zRnIBfdyNhIwN2Y1" target="_blank" class="telegram-btn">
+                <i class="fab fa-telegram-plane"></i>
+                Join Telegram Group
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Why Hackathons Section -->
+            <section class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Why Hackathons Are Important for Students
+                </h2>
+                <div class="section-content">
+                    <p>Hackathons are intensive events where students collaborate to solve real-world problems using technology. They're not just coding competitions – they're transformative experiences that can shape your career and mindset.</p>
+                    
+                    <p>In today's competitive tech landscape, hackathons serve as a bridge between academic learning and industry requirements. They provide a unique platform where theoretical knowledge meets practical application, fostering innovation and creativity.</p>
+                    
+                    <p>Whether you're a beginner or an experienced coder, hackathons offer invaluable opportunities to learn, network, and showcase your skills to potential employers and collaborators.</p>
+                </div>
+            </section>
+
+            <!-- Benefits Section -->
+            <section class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    Benefits & Experience You'll Gain
+                </h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="benefit-title">Technical Skills</h3>
+                        <p class="benefit-description">Learn new programming languages, frameworks, and tools while working on real projects under time pressure.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="benefit-title">Teamwork & Collaboration</h3>
+                        <p class="benefit-description">Develop essential soft skills by working with diverse teams and managing project timelines effectively.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3 class="benefit-title">Professional Networking</h3>
+                        <p class="benefit-description">Connect with industry professionals, mentors, and like-minded peers who can open doors to future opportunities.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="benefit-title">Career Opportunities</h3>
+                        <p class="benefit-description">Many participants receive job offers, internships, or startup opportunities directly from hackathon sponsors.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="benefit-title">Problem-Solving Skills</h3>
+                        <p class="benefit-description">Enhance your ability to think critically and solve complex problems under pressure and time constraints.</p>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="benefit-title">Innovation & Creativity</h3>
+                        <p class="benefit-description">Push the boundaries of what's possible and develop innovative solutions to real-world challenges.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- First Timer Section -->
+            <section class="section first-timer">
+                <h2 class="section-title">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    First Hackathon? Don't Worry!
+                </h2>
+                <div class="section-content">
+                    <p class="intro-text">We understand that your first hackathon can feel overwhelming. That's exactly why we created Hackathon Connect – to ensure no student feels lost or intimidated.</p>
+                    
+                    <div class="stats-section">
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Expert Seniors</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            <span class="stat-label">Hackathons Won</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Students Mentored</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Support Available</span>
+                        </div>
+                    </div>
+                    
+                    <div class="guidance-grid">
+                        <div class="guidance-card">
+                            <div class="guidance-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h4 class="guidance-title">Choose Right Hackathon</h4>
+                            <p class="guidance-description">Get personalized recommendations for hackathons that match your skill level and interests</p>
+                        </div>
+                        
+                        <div class="guidance-card">
+                            <div class="guidance-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h4 class="guidance-title">Technology Selection</h4>
+                            <p class="guidance-description">Learn which frameworks and tools work best for different types of projects</p>
+                        </div>
+                        
+                        <div class="guidance-card">
+                            <div class="guidance-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="guidance-title">Team Formation</h4>
+                            <p class="guidance-description">Connect with like-minded participants and build balanced, effective teams</p>
+                        </div>
+                        
+                        <div class="guidance-card">
+                            <div class="guidance-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4 class="guidance-title">Idea Development</h4>
+                            <p class="guidance-description">Transform your concepts into viable solutions with structured brainstorming</p>
+                        </div>
+                        
+                        <div class="guidance-card">
+                            <div class="guidance-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 class="guidance-title">Time Management</h4>
+                            <p class="guidance-description">Master the art of delivering quality projects within tight deadlines</p>
+                        </div>
+                        
+                        <div class="guidance-card">
+                            <div class="guidance-icon">
+                                <i class="fas fa-presentation"></i>
+                            </div>
+                            <h4 class="guidance-title">Pitch Preparation</h4>
+                            <p class="guidance-description">Create compelling presentations that showcase your solution effectively</p>
+                        </div>
+                    </div>
+                    
+                    <p class="closing-text">Our expert seniors have won numerous hackathons and are passionate about helping newcomers succeed in their journey!</p>
+                </div>
+            </section>
+
+            <!-- Support Section -->
+            <section class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-hands-helping"></i>
+                    We're Here to Help You Succeed
+                </h2>
+                <div class="section-content">
+                    <p>Join our Hackathon Connect Telegram group and become part of a supportive community where:</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-lg); margin: var(--space-lg) 0;">
+                        <div style="text-align: center; padding: var(--space-md);">
+                            <i class="fas fa-question-circle" style="font-size: var(--font-size-2xl); color: var(--accent-blue); margin-bottom: var(--space-sm);"></i>
+                            <h4>Ask Questions Freely</h4>
+                            <p>No question is too basic or too complex. Our community welcomes all inquiries.</p>
+                        </div>
+                        
+                        <div style="text-align: center; padding: var(--space-md);">
+                            <i class="fas fa-share-alt" style="font-size: var(--font-size-2xl); color: var(--accent-blue); margin-bottom: var(--space-sm);"></i>
+                            <h4>Share Resources</h4>
+                            <p>Access curated resources, tutorials, and tools shared by experienced participants.</p>
+                        </div>
+                        
+                        <div style="text-align: center; padding: var(--space-md);">
+                            <i class="fas fa-calendar-alt" style="font-size: var(--font-size-2xl); color: var(--accent-blue); margin-bottom: var(--space-sm);"></i>
+                            <h4>Stay Updated</h4>
+                            <p>Get notified about upcoming hackathons, workshops, and networking events.</p>
+                        </div>
+                    </div>
+                    
+                    <p>Remember, every expert was once a beginner. The key is to start, learn, and keep improving. With our support system, you'll never feel alone in your hackathon journey.</p>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2 class="cta-title">Ready to Start Your Hackathon Journey?</h2>
+                <p class="cta-description">Join hundreds of students who've already transformed their careers through hackathons!</p>
+                <a href="https://t.me/+zRnIBfdyNhIwN2Y1" target="_blank" class="cta-btn">
+                    <i class="fab fa-telegram-plane"></i>
+                    Join Our Community Now
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating particles
+            function createParticles() {
+                const particlesContainer = document.querySelector('.particles-bg');
+                if (!particlesContainer) {
+                    const container = document.createElement('div');
+                    container.className = 'particles-bg';
+                    document.body.appendChild(container);
+                }
+
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = Math.random() * 6 + 2 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                    document.querySelector('.particles-bg').appendChild(particle);
+                }
+            }
+
+            createParticles();
+
+            // Animate elements on scroll with staggered delays
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all benefit cards with staggered animation
+            document.querySelectorAll('.benefit-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = `all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.1}s`;
+                observer.observe(card);
+            });
+
+            // Observe sections
+            document.querySelectorAll('.section').forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = `all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.2}s`;
+                observer.observe(section);
+            });
+
+            // Add parallax effect to hero section
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const heroSection = document.querySelector('.hero-section');
+                if (heroSection) {
+                    heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+
+            // Add click tracking and enhanced button effects
+            document.querySelectorAll('a[href*="t.me"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    console.log('Telegram group link clicked');
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Add hover sound effect simulation (visual feedback)
+            document.querySelectorAll('.benefit-card, .stat-item').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.05)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.filter = 'brightness(1)';
+                });
+            });
+
+            // Animate numbers in stats section
+            function animateNumbers() {
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const finalNumber = stat.textContent;
+                    const isNumber = !isNaN(parseInt(finalNumber));
+                    
+                    if (isNumber) {
+                        const target = parseInt(finalNumber);
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            stat.textContent = Math.floor(current) + (finalNumber.includes('+') ? '+' : '');
+                        }, 30);
+                    }
+                });
+            }
+
+            // Trigger number animation when stats section is visible
+            const statsObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateNumbers();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
