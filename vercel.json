@@ -6,7 +6,7 @@
     },
     {
       "source": "/",
-      "destination": "/dashboard.html"  <-- CHANGED THIS LINE
+      "destination": "/ai-assistant.html"  <-- THIS IS THE LINE TO CHANGE
     },
     {
       "source": "/:path((?!api/).*)",
