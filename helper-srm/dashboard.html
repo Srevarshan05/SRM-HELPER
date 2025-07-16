@@ -508,6 +508,411 @@
             border-radius: 20px;
         }
 
+        /* Smart To-Do List Styles */
+        .todo-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .todo-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .todo-section:hover::before {
+            left: 100%;
+        }
+
+        .todo-section:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: var(--glow-blue);
+        }
+
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .todo-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .todo-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 80px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-badge.completed {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .stat-badge.pending {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .stat-badge:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: var(--glow-blue);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        .todo-input-section {
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        #todoInput {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        #todoInput:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        #todoInput::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        #prioritySelect, #categorySelect {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--white);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        #prioritySelect:focus, #categorySelect:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        #prioritySelect option, #categorySelect option {
+            background: #1a1a2e;
+            color: var(--white);
+        }
+
+        #addTodoBtn {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #addTodoBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-blue);
+        }
+
+        .todo-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-gradient);
+            color: var(--white);
+            border-color: transparent;
+        }
+
+        .todo-list {
+            min-height: 200px;
+            margin-bottom: 2rem;
+        }
+
+        .todo-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .todo-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s;
+        }
+
+        .todo-item:hover::before {
+            left: 100%;
+        }
+
+        .todo-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(5px);
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .todo-checkbox.checked {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: #10b981;
+        }
+
+        .todo-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .todo-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .todo-text {
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .todo-item.completed .todo-text {
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .todo-meta {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .priority-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+        }
+
+        .priority-low {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+        }
+
+        .category-badge {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+
+        .todo-actions-item {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edit-btn, .delete-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .delete-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            color: var(--white);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn.danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #fca5a5;
+        }
+
+        .action-btn.warning:hover {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: #f59e0b;
+            color: #fcd34d;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
@@ -554,6 +959,35 @@
                 flex-direction: column;
                 text-align: center;
                 gap: 0.75rem;
+            }
+
+            .todo-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .todo-stats {
+                justify-content: center;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .todo-filters {
+                justify-content: center;
+            }
+
+            .todo-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .todo-meta {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -746,10 +1180,96 @@
                 </div>
             </div>
 
+            <!-- Smart To-Do List Section -->
+            <div class="todo-section">
+                <div class="todo-header">
+                    <h2><i class="fas fa-tasks"></i> Smart Study Planner</h2>
+                    <div class="todo-stats">
+                        <div class="stat-badge">
+                            <span class="stat-number" id="totalTasks">0</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                        <div class="stat-badge completed">
+                            <span class="stat-number" id="completedTasks">0</span>
+                            <span class="stat-label">Done</span>
+                        </div>
+                        <div class="stat-badge pending">
+                            <span class="stat-number" id="pendingTasks">0</span>
+                            <span class="stat-label">Pending</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="todo-input-section">
+                    <div class="input-group">
+                        <input type="text" id="todoInput" placeholder="Add a new study task..." maxlength="100">
+                        <select id="prioritySelect">
+                            <option value="low">📘 Low Priority</option>
+                            <option value="medium" selected>📙 Medium Priority</option>
+                            <option value="high">📕 High Priority</option>
+                        </select>
+                        <select id="categorySelect">
+                            <option value="study">📚 Study</option>
+                            <option value="assignment">📝 Assignment</option>
+                            <option value="exam">🎯 Exam Prep</option>
+                            <option value="project">💻 Project</option>
+                            <option value="research">🔬 Research</option>
+                            <option value="other">📋 Other</option>
+                        </select>
+                        <button id="addTodoBtn">
+                            <i class="fas fa-plus"></i>
+                            Add Task
+                        </button>
+                    </div>
+                </div>
+
+                <div class="todo-filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i> All Tasks
+                    </button>
+                    <button class="filter-btn" data-filter="pending">
+                        <i class="fas fa-clock"></i> Pending
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check"></i> Completed
+                    </button>
+                    <button class="filter-btn" data-filter="high">
+                        <i class="fas fa-exclamation"></i> High Priority
+                    </button>
+                </div>
+
+                <div class="todo-list" id="todoList">
+                    <!-- Dynamic todo items will be inserted here -->
+                </div>
+
+                <div class="todo-actions">
+                    <button id="clearCompletedBtn" class="action-btn danger">
+                        <i class="fas fa-trash"></i>
+                        Clear Completed
+                    </button>
+                    <button id="clearAllBtn" class="action-btn warning">
+                        <i class="fas fa-broom"></i>
+                        Clear All
+                    </button>
+                </div>
+            </div>
+
             <!-- Recent Activity -->
             <div class="recent-activity">
                 <h2>Features Overview</h2>
                 <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Smart Study Planner</h4>
+                            <p>Organize your tasks with priority levels and categories</p>
+                        </div>
+                        <div class="activity-time">
+                            <span>New!</span>
+                        </div>
+                    </div>
                     <div class="activity-item">
                         <div class="activity-icon">
                             <i class="fas fa-download"></i>
