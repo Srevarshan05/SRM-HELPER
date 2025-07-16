@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HELPER GPT - AI Study Assistant | SRM Verse</title>
+    <title>SRM GPT - AI Study Assistant | SRM Verse</title>
     <link rel="stylesheet" href="css/unified-theme.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -93,11 +93,256 @@
             position: relative;
             color: var(--white);
             transition: all 0.3s ease;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .message.user-message .message-content {
             background: var(--primary-gradient);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Enhanced message formatting styles with overflow control */
+        .message-text {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .message-text h1, .message-text h2, .message-text h3, .message-text h4 {
+            color: #4fc3f7;
+            margin: 1rem 0 0.5rem 0;
+            font-weight: 600;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text h1 { font-size: 1.3rem; }
+        .message-text h2 { font-size: 1.2rem; }
+        .message-text h3 { font-size: 1.1rem; }
+        .message-text h4 { font-size: 1rem; }
+
+        .message-text p {
+            margin: 0.75rem 0;
+            line-height: 1.7;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text ul, .message-text ol {
+            margin: 0.75rem 0;
+            padding-left: 1.5rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text li {
+            margin: 0.4rem 0;
+            line-height: 1.6;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text strong {
+            color: #81c784;
+            font-weight: 600;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text em {
+            color: #ffb74d;
+            font-style: italic;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text code {
+            background: rgba(0, 0, 0, 0.3);
+            color: #ff9800;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            white-space: pre-wrap;
+            max-width: 100%;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        .message-text pre {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            position: relative;
+            max-width: 100%;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .message-text pre code {
+            background: none;
+            color: #e0e0e0;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-width: 100%;
+            display: block;
+            overflow-wrap: break-word;
+        }
+
+        .message-text blockquote {
+            border-left: 3px solid #4fc3f7;
+            background: rgba(79, 195, 247, 0.1);
+            margin: 1rem 0;
+            padding: 0.75rem 1rem;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .message-text .math-expression {
+            background: rgba(156, 39, 176, 0.1);
+            border: 1px solid rgba(156, 39, 176, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            color: #ce93d8;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+
+        .message-text .step-by-step {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .message-text .step-by-step .step {
+            margin: 0.75rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text .step-by-step .step:last-child {
+            border-bottom: none;
+        }
+
+        .message-text .step-number {
+            color: #4caf50;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text .highlight {
+            background: rgba(255, 235, 59, 0.2);
+            color: #fff59d;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .message-text .warning {
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            color: #ffcc02;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .message-text .info {
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            color: #64b5f6;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .message-text table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 100%;
+            box-sizing: border-box;
+            table-layout: fixed;
+        }
+
+        .message-text th, .message-text td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .message-text th {
+            background: rgba(79, 195, 247, 0.2);
+            color: #4fc3f7;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
         }
 
         .message-time {
@@ -241,6 +486,7 @@
             padding: 0.5rem;
         }
 
+        /* Enhanced Mobile Responsiveness */
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-menu { 
@@ -255,37 +501,261 @@
                 top: 80px; 
                 left: 0; 
                 z-index: 999; 
+                border-radius: 0 0 16px 16px;
             }
             .nav-menu.active { display: flex; }
             .nav-link { 
                 width: 100%; 
                 justify-content: center; 
-                padding: 1rem; 
-                font-size: 1rem; 
+                padding: 0.75rem 1rem; 
+                font-size: 0.9rem; 
+                margin: 0.25rem 0;
+                border-radius: 12px;
             }
             .nav-link span { display: none; }
-            .chat-container { height: calc(100vh - 200px); }
-            .chat-messages { padding: 1rem; }
-            .message { max-width: 90%; }
-            .message-content { padding: 0.75rem 1rem; font-size: 0.9rem; }
-            .chat-input-wrapper { padding: 0.5rem; }
-            .send-btn { width: 36px; height: 36px; font-size: 0.9rem; }
-            .input-suggestions { gap: 0.5rem; }
-            .suggestion-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            
+            /* Chat Layout Optimization */
+            .main-content { padding: 1rem 0.5rem; }
+            .chat-wrapper { gap: 0; }
+            .chat-container { 
+                height: calc(100vh - 160px); 
+                border-radius: 16px;
+                margin: 0 0.5rem;
+            }
+            
+            /* Header Improvements */
+            .chat-header { 
+                padding: 1rem 1.5rem; 
+                text-align: center;
+            }
+            .chat-header h1 { 
+                font-size: 1.2rem; 
+                flex-direction: column;
+                gap: 0.5rem;
+                line-height: 1.3;
+            }
+            .chat-header p { 
+                font-size: 0.8rem; 
+                margin-top: 0.5rem;
+                line-height: 1.4;
+            }
+            
+            /* Messages Area */
+            .chat-messages { 
+                padding: 1rem 0.75rem; 
+                gap: 0.75rem;
+            }
+            .message { 
+                max-width: 85%; 
+                gap: 0.5rem;
+            }
+            .message-content { 
+                padding: 0.75rem 1rem; 
+                font-size: 0.9rem; 
+                border-radius: 16px;
+                line-height: 1.5;
+            }
+            .message-time { 
+                font-size: 0.7rem; 
+                margin-top: 0.5rem;
+            }
+            
+            /* Enhanced Message Formatting for Mobile */
+            .message-text h1 { font-size: 1.1rem; margin: 0.75rem 0 0.4rem 0; }
+            .message-text h2 { font-size: 1rem; margin: 0.75rem 0 0.4rem 0; }
+            .message-text h3 { font-size: 0.95rem; margin: 0.75rem 0 0.4rem 0; }
+            .message-text h4 { font-size: 0.9rem; margin: 0.75rem 0 0.4rem 0; }
+            .message-text p { margin: 0.5rem 0; line-height: 1.6; }
+            .message-text ul, .message-text ol { margin: 0.5rem 0; padding-left: 1.2rem; }
+            .message-text li { margin: 0.3rem 0; }
+            .message-text pre { 
+                margin: 0.75rem 0; 
+                padding: 0.75rem; 
+                border-radius: 8px;
+                overflow-x: auto;
+            }
+            .message-text code { 
+                font-size: 0.8rem; 
+                padding: 0.15rem 0.3rem;
+            }
+            .message-text blockquote { 
+                margin: 0.75rem 0; 
+                padding: 0.5rem 0.75rem; 
+                font-size: 0.85rem;
+            }
+            
+            /* Input Area Improvements */
+            .chat-input-container { 
+                padding: 1rem; 
+                background: rgba(255, 255, 255, 0.03);
+            }
+            .chat-input-wrapper { 
+                padding: 0.5rem; 
+                border-radius: 16px;
+                gap: 0.5rem;
+            }
+            .chat-input-wrapper textarea { 
+                padding: 0.75rem; 
+                font-size: 0.9rem;
+                min-height: 40px;
+                line-height: 1.4;
+            }
+            .send-btn { 
+                width: 36px; 
+                height: 36px; 
+                font-size: 0.9rem; 
+                border-radius: 10px;
+            }
+            
+            /* Suggestions Layout */
+            .input-suggestions { 
+                margin-top: 0.75rem; 
+                gap: 0.5rem; 
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+            .suggestion-btn { 
+                padding: 0.4rem 0.75rem; 
+                font-size: 0.8rem; 
+                border-radius: 16px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            
+            /* Copy Button Mobile Optimization */
+            .copy-btn { 
+                top: 0.4rem; 
+                right: 0.4rem; 
+                padding: 0.2rem 0.4rem; 
+                font-size: 0.7rem;
+            }
+            
+            /* Thinking Indicator */
+            .thinking-indicator { padding: 0.75rem 1rem; }
+            .thinking-dot { width: 10px; height: 10px; }
         }
 
         @media (max-width: 480px) {
-            .chat-container { height: calc(100vh - 180px); }
-            .chat-messages { padding: 0.75rem; }
-            .message { max-width: 95%; }
-            .message-content { padding: 0.5rem 0.75rem; }
-            .chat-input-wrapper textarea { min-height: 35px; }
-            .send-btn { width: 32px; height: 32px; font-size: 0.8rem; }
+            /* Extra Small Screens Optimization */
+            .main-content { padding: 0.5rem 0.25rem; }
+            .chat-container { 
+                height: calc(100vh - 140px); 
+                margin: 0 0.25rem;
+                border-radius: 12px;
+            }
+            
+            /* Compact Header */
+            .chat-header { 
+                padding: 0.75rem 1rem; 
+            }
+            .chat-header h1 { 
+                font-size: 1.1rem; 
+                gap: 0.4rem;
+            }
+            .chat-header p { 
+                font-size: 0.75rem; 
+                margin-top: 0.4rem;
+            }
+            
+            /* Compact Messages */
+            .chat-messages { 
+                padding: 0.75rem 0.5rem; 
+                gap: 0.6rem;
+            }
+            .message { 
+                max-width: 90%; 
+                gap: 0.4rem;
+            }
+            .message-content { 
+                padding: 0.6rem 0.8rem; 
+                font-size: 0.85rem; 
+                border-radius: 14px;
+            }
+            .message-time { 
+                font-size: 0.65rem; 
+                margin-top: 0.4rem;
+            }
+            
+            /* Compact Message Formatting */
+            .message-text h1 { font-size: 1rem; margin: 0.6rem 0 0.3rem 0; }
+            .message-text h2 { font-size: 0.95rem; margin: 0.6rem 0 0.3rem 0; }
+            .message-text h3 { font-size: 0.9rem; margin: 0.6rem 0 0.3rem 0; }
+            .message-text h4 { font-size: 0.85rem; margin: 0.6rem 0 0.3rem 0; }
+            .message-text p { margin: 0.4rem 0; font-size: 0.85rem; }
+            .message-text ul, .message-text ol { padding-left: 1rem; }
+            .message-text pre { 
+                margin: 0.6rem 0; 
+                padding: 0.6rem; 
+                font-size: 0.75rem;
+            }
+            .message-text code { font-size: 0.75rem; }
+            
+            /* Compact Input */
+            .chat-input-container { 
+                padding: 0.75rem 0.5rem; 
+            }
+            .chat-input-wrapper { 
+                padding: 0.4rem; 
+                border-radius: 14px;
+            }
+            .chat-input-wrapper textarea { 
+                padding: 0.6rem; 
+                font-size: 0.85rem;
+                min-height: 36px;
+            }
+            .send-btn { 
+                width: 32px; 
+                height: 32px; 
+                font-size: 0.8rem; 
+                border-radius: 8px;
+            }
+            
+            /* Compact Suggestions */
+            .input-suggestions { 
+                margin-top: 0.6rem; 
+                gap: 0.4rem; 
+            }
+            .suggestion-btn { 
+                padding: 0.35rem 0.6rem; 
+                font-size: 0.75rem; 
+                border-radius: 14px;
+            }
+            
+            /* Compact Copy Button */
+            .copy-btn { 
+                top: 0.3rem; 
+                right: 0.3rem; 
+                padding: 0.15rem 0.3rem; 
+                font-size: 0.65rem;
+                border-radius: 3px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            /* Ultra Small Screens */
+            .chat-header h1 { 
+                font-size: 1rem; 
+                text-align: center;
+            }
+            .chat-header p { 
+                font-size: 0.7rem; 
+            }
+            .message-content { 
+                padding: 0.5rem 0.7rem; 
+                font-size: 0.8rem; 
+            }
+            .chat-input-wrapper textarea { 
+                font-size: 0.8rem;
+                padding: 0.5rem;
+            }
+            .suggestion-btn { 
+                padding: 0.3rem 0.5rem; 
+                font-size: 0.7rem; 
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-bg">
         <div class="particles">
             <div class="particle"></div>
@@ -333,7 +803,7 @@
                 </a>
                 <a href="ai-assistant.html" class="nav-link active" aria-label="HELPER GPT">
                     <i class="fas fa-robot"></i>
-                    <span>HELPER GPT</span>
+                    <span>SRM GPT</span>
                 </a>
             </div>
         </div>
@@ -343,14 +813,14 @@
         <div class="chat-wrapper">
             <section class="chat-container" aria-live="polite" aria-atomic="false" aria-relevant="additions">
                 <div class="chat-header">
-                    <h1><i class="fas fa-robot"></i> HELPER GPT - AI Study Assistant</h1>
+                    <h1><i class="fas fa-robot"></i> SRM GPT - AI Study Assistant</h1>
                     <p>Powered by Llama 3.3 70B Versatile. Ask me anything about your studies!</p>
                 </div>
                 <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions">
                     <div class="message bot-message" role="article" aria-label="Assistant message">
                         <div class="message-content">
                             <div class="message-text">
-                                Hello! I'm HELPER GPT, your personal AI tutor. I can assist with math and science problems, explain complex concepts, summarize topics, help with homework and projects, write code, and answer any academic questions you have. What would you like to learn about today?
+                                Hello! I'm SRM GPT, your personal AI tutor. I can assist with math and science problems, explain complex concepts, summarize topics, help with homework and projects, write code, and answer any academic questions you have. What would you like to learn about today?
                             </div>
                             <div class="message-time">Just now</div>
                         </div>
@@ -360,7 +830,7 @@
                     <div class="chat-input-wrapper">
                         <textarea
                             id="chatInput"
-                            placeholder="Ask HELPER GPT anything about your studies..."
+                            placeholder="Ask SRM GPT anything about your studies..."
                             rows="1"
                             onkeydown="handleKeyDown(event)"
                             aria-label="Chat input"
@@ -409,9 +879,9 @@
 
     const chatMessages = document.getElementById('chatMessages');
     const sendBtn = document.getElementById('sendBtn');
+    const chatInput = document.getElementById('chatInput'); // Define chatInput globally or pass it
 
     async function sendMessage() {
-        const chatInput = document.getElementById('chatInput');
         const messageText = chatInput.value.trim();
         if (!messageText) return;
 
@@ -519,7 +989,7 @@
     }
 
     // Auto-resize textarea
-    const chatInput = document.getElementById('chatInput');
+    // The chatInput variable is now defined at a higher scope
     chatInput.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = Math.min(this.scrollHeight, 120) + 'px';
@@ -620,5 +1090,7 @@
         });
     }
 </script>
+
+    
 </body>
 </html>
