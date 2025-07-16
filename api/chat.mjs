@@ -1,8 +1,4 @@
-// api/chat.mjs
 
-// This line is needed if you are running node-fetch locally.
-// Vercel's Node.js runtime has fetch built-in, so you might not need this for deployment.
-// However, it's good practice for local testing or compatibility.
 import fetch from 'node-fetch';
 
 // This is the main function that Vercel will run when your frontend calls /api/chat
