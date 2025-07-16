@@ -6,7 +6,7 @@
     },
     {
       "source": "/",
-      "destination": "/ai-assistant.html"
+      "destination": "/dashboard.html"  
     },
     {
       "source": "/:path((?!api/).*)",
