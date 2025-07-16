@@ -328,9 +328,4 @@ function initTodoList() {
 
     // Initial render
     renderTodos(currentFilter);
-    
-    // Focus on input field
-    setTimeout(() => {
-        todoInput.focus();
-    }, 500);
 }
