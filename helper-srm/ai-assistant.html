@@ -7,138 +7,18 @@
     <link rel="stylesheet" href="css/unified-theme.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.17/mammoth.browser.min.js"></script>
     <style>
         /* AI Assistant specific styles */
         .chat-wrapper {
             display: flex;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             gap: 2rem;
         }
 
-        .sidebar {
-            width: 280px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            height: fit-content;
-        }
-
-        .sidebar-header {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--white);
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .file-upload-area {
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .file-upload-area.dragover {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--white);
-        }
-
-        .file-upload-area:hover {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .file-upload-area i {
-            font-size: 2rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.75rem;
-            display: block;
-        }
-
-        .file-upload-area p {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--white);
-        }
-
-        .file-upload-area span {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .uploaded-files-list {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 0.5rem;
-            max-height: 300px;
-        }
-
-        .uploaded-file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .uploaded-file-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-
-        .uploaded-file-name {
-            flex-grow: 1;
-            font-size: 0.9rem;
-            color: var(--white);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .remove-file-btn {
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            cursor: pointer;
-            font-size: 0.9rem;
-            padding: 0.25rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .remove-file-btn:hover {
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.1);
-        }
-
         .chat-container {
-            flex-grow: 1;
+            width: 100%;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -300,7 +180,7 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        .attachment-btn, .send-btn {
+        .send-btn {
             background: var(--primary-gradient);
             border: none;
             color: var(--white);
@@ -316,12 +196,12 @@
             flex-shrink: 0;
         }
 
-        .attachment-btn:hover, .send-btn:hover {
+        .send-btn:hover {
             transform: translateY(-2px);
             box-shadow: var(--glow-blue);
         }
 
-        .attachment-btn:disabled, .send-btn:disabled {
+        .send-btn:disabled {
             background: rgba(255, 255, 255, 0.2);
             cursor: not-allowed;
             transform: none;
@@ -384,26 +264,23 @@
                 font-size: 1rem; 
             }
             .nav-link span { display: none; }
-            .chat-wrapper { flex-direction: column; }
-            .sidebar { width: 100%; max-height: 250px; }
-            .uploaded-files-list { max-height: 120px; }
-            .chat-container { height: calc(100vh - 300px); }
+            .chat-container { height: calc(100vh - 200px); }
             .chat-messages { padding: 1rem; }
             .message { max-width: 90%; }
             .message-content { padding: 0.75rem 1rem; font-size: 0.9rem; }
             .chat-input-wrapper { padding: 0.5rem; }
-            .attachment-btn, .send-btn { width: 36px; height: 36px; font-size: 0.9rem; }
+            .send-btn { width: 36px; height: 36px; font-size: 0.9rem; }
             .input-suggestions { gap: 0.5rem; }
             .suggestion-btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
         }
 
         @media (max-width: 480px) {
-            .chat-container { height: calc(100vh - 280px); }
+            .chat-container { height: calc(100vh - 180px); }
             .chat-messages { padding: 0.75rem; }
             .message { max-width: 95%; }
             .message-content { padding: 0.5rem 0.75rem; }
             .chat-input-wrapper textarea { min-height: 35px; }
-            .attachment-btn, .send-btn { width: 32px; height: 32px; font-size: 0.8rem; }
+            .send-btn { width: 32px; height: 32px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -438,7 +315,7 @@
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="semesters.html" class="nav-link" aria-label="Materials">
+                <a href="materials-simple.html" class="nav-link" aria-label="Materials">
                     <i class="fas fa-book"></i>
                     <span>Materials</span>
                 </a>
@@ -448,7 +325,7 @@
                 </a>
                 <a href="attendance-calculator.html" class="nav-link" aria-label="Attendance Tracker">
                     <i class="fas fa-calendar-check"></i>
-                    <span>Attendance Tracker</span>
+                    <span>Attendance</span>
                 </a>
                 <a href="pomodoro-timer.html" class="nav-link" aria-label="Pomodoro Timer">
                     <i class="fas fa-clock"></i>
@@ -464,28 +341,16 @@
 
     <main class="main-content" role="main" aria-label="HELPER GPT">
         <div class="chat-wrapper">
-            <div class="sidebar" aria-label="Study Materials">
-                <div class="sidebar-header">Uploaded Study Materials</div>
-                <div class="file-upload-area" id="fileUploadArea" tabindex="0" role="button" aria-label="Upload study materials">
-                    <div class="upload-content">
-                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-                        <p>Upload Study Materials</p>
-                        <span>PDF, DOC, DOCX, TXT, PNG, JPG, JPEG</span>
-                    </div>
-                    <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg" style="display: none;" aria-hidden="true">
-                </div>
-                <div class="uploaded-files-list" id="uploadedFilesList" aria-label="Uploaded study materials list" tabindex="0"></div>
-            </div>
             <section class="chat-container" aria-live="polite" aria-atomic="false" aria-relevant="additions">
                 <div class="chat-header">
                     <h1><i class="fas fa-robot"></i> HELPER GPT - AI Study Assistant</h1>
-                    <p>Powered by Meta Llama 3.2 11B Vision Instruct. Ask questions about your study materials!</p>
+                    <p>Powered by Llama 3.3 70B Versatile. Ask me anything about your studies!</p>
                 </div>
                 <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions">
                     <div class="message bot-message" role="article" aria-label="Assistant message">
                         <div class="message-content">
                             <div class="message-text">
-                                Hello! I'm HELPER GPT, your personal tutor. I can assist with math and science problems, explain complex concepts, summarize topics, help with homework and projects, and write code. Upload study materials or ask a question to get started.
+                                Hello! I'm HELPER GPT, your personal AI tutor. I can assist with math and science problems, explain complex concepts, summarize topics, help with homework and projects, write code, and answer any academic questions you have. What would you like to learn about today?
                             </div>
                             <div class="message-time">Just now</div>
                         </div>
@@ -493,12 +358,9 @@
                 </div>
                 <div class="chat-input-container">
                     <div class="chat-input-wrapper">
-                        <button class="attachment-btn" aria-label="Attach files" title="Attach files" onclick="document.getElementById('fileInput').click()">
-                            <i class="fas fa-paperclip"></i>
-                        </button>
                         <textarea
                             id="chatInput"
-                            placeholder="Ask HELPER GPT about your study materials..."
+                            placeholder="Ask HELPER GPT anything about your studies..."
                             rows="1"
                             onkeydown="handleKeyDown(event)"
                             aria-label="Chat input"
@@ -510,17 +372,17 @@
                         </button>
                     </div>
                     <div class="input-suggestions" role="list" aria-label="Suggested questions">
-                        <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Explain this concept from my notes')">
+                        <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Explain a complex concept')">
                             Explain concept
                         </button>
-                        <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Help me solve this problem')">
+                        <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Help me solve this math problem')">
                             Solve problem
-                        </button>
-                        <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Summarize my uploaded document')">
-                            Summarize document
                         </button>
                         <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Write code for this task')">
                             Write code
+                        </button>
+                        <button class="suggestion-btn" role="listitem" onclick="insertSuggestion('Help with my homework')">
+                            Homework help
                         </button>
                     </div>
                 </div>
@@ -529,335 +391,234 @@
     </main>
 
     <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
-        const OPENROUTER_API_KEY = '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';
-        const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-        const EMBEDDING_URL = 'https://openrouter.ai/api/v1/embeddings';
-        const MODEL = 'meta-llama/llama-3.2-11b-vision-instruct:free';
-        const EMBEDDING_MODEL = 'nomic-embed-text';
+    // API configuration - now calling your own Vercel serverless function
+    const LOCAL_API_URL = '/api/chat'; // This is the path to your new serverless function (api/chat.js)
+    // const MODEL = 'llama-3.3-70b-versatile'; // This model variable is no longer strictly needed on the frontend,
+                                             // as your serverless function will specify the model.
 
-        document.getElementById('hamburger').addEventListener('click', () => {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
+    document.getElementById('hamburger').addEventListener('click', () => {
+        const navMenu = document.getElementById('navMenu');
+        navMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('navMenu').classList.remove('active');
         });
+    });
 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navMenu').classList.remove('active');
+    const chatMessages = document.getElementById('chatMessages');
+    const sendBtn = document.getElementById('sendBtn');
+
+    async function sendMessage() {
+        const chatInput = document.getElementById('chatInput');
+        const messageText = chatInput.value.trim();
+        if (!messageText) return;
+
+        // Add user message to chat
+        const userMessage = document.createElement('div');
+        userMessage.className = 'message user-message';
+        userMessage.innerHTML = `
+            <div class="message-content">
+                <div class="message-text">${messageText}</div>
+                <div class="message-time">${new Date().toLocaleTimeString()}</div>
+            </div>
+        `;
+        chatMessages.appendChild(userMessage);
+
+        // Add thinking indicator
+        const thinkingIndicator = document.createElement('div');
+        thinkingIndicator.className = 'thinking-indicator';
+        thinkingIndicator.innerHTML = `
+            <div class="thinking-spinner">
+                <span class="thinking-dot"></span>
+                <span class="thinking-dot"></span>
+                <span class="thinking-dot"></span>
+            </div>
+        `;
+        chatMessages.appendChild(thinkingIndicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Disable send button
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        try {
+            // Modified fetch call to point to your Vercel serverless function
+            const response = await fetch(LOCAL_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: messageText // Only send the user's message, the serverless function handles the rest
+                })
             });
-        });
 
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const uploadedFilesList = document.getElementById('uploadedFilesList');
-        const chatMessages = document.getElementById('chatMessages');
-        const sendBtn = document.getElementById('sendBtn');
-        let documents = [];
-
-        fileUploadArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            fileUploadArea.classList.add('dragover');
-        });
-
-        fileUploadArea.addEventListener('dragleave', () => {
-            fileUploadArea.classList.remove('dragover');
-        });
-
-        fileUploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileUploadArea.classList.remove('dragover');
-            handleFiles(e.dataTransfer.files);
-        });
-
-        fileUploadArea.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        fileInput.addEventListener('change', () => {
-            handleFiles(fileInput.files);
-        });
-
-        async function handleFiles(files) {
-            for (let file of files) {
-                if (file.type.match(/^(application\/(pdf|msword|vnd\.openxmlformats-officedocument\.wordprocessingml\.document)|text\/plain|image\/(png|jpeg))$/)) {
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'uploaded-file-item';
-                    fileItem.innerHTML = `
-                        <span class="uploaded-file-name">${file.name}</span>
-                        <button class="remove-file-btn" aria-label="Remove ${file.name}" title="Remove file">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    `;
-                    uploadedFilesList.appendChild(fileItem);
-                    fileItem.querySelector('.remove-file-btn').addEventListener('click', () => {
-                        fileItem.remove();
-                        documents = documents.filter(doc => doc.name !== file.name);
-                    });
-
-                    const content = await processFile(file);
-                    if (content) {
-                        let base64Data = null;
-                        if (file.type.startsWith('image/')) {
-                            base64Data = await getImageBase64(file);
-                        }
-                        const chunks = chunkText(content, 500);
-                        for (let i = 0; i < chunks.length; i++) {
-                            const embedding = await getEmbedding(chunks[i]);
-                            documents.push({ name: `${file.name}_chunk_${i}`, content: chunks[i], embedding, base64: base64Data });
-                        }
-                    }
-                } else {
-                    alert('Unsupported file type: ' + file.name);
-                }
+            const data = await response.json(); // Parse the JSON response from your serverless function
+            
+            if (response.status !== 200) {
+                // If your serverless function returned an error status (e.g., 400, 500)
+                throw new Error(data.error || 'Unknown error from serverless function');
             }
-            fileInput.value = '';
-        }
 
-        function chunkText(text, maxLength) {
-            const chunks = [];
-            for (let i = 0; i < text.length; i += maxLength) {
-                chunks.push(text.slice(i, i + maxLength));
-            }
-            return chunks;
-        }
+            const reply = data.reply; // Your serverless function sends the AI's response in a 'reply' field
 
-        async function getImageBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result.split(',')[1]);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
+            // Remove thinking indicator
+            thinkingIndicator.remove();
 
-        async function processFile(file) {
-            try {
-                if (file.type.startsWith('image/')) {
-                    const base64Data = await getImageBase64(file);
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                            'Content-Type': 'application/json',
-                            'HTTP-Referer': 'https://helper-srm.com',
-                            'X-Title': 'HELPER GPT'
-                        },
-                        body: JSON.stringify({
-                            model: MODEL,
-                            messages: [
-                                {
-                                    role: 'system',
-                                    content: 'You are HELPER GPT, a personal tutor and assistance provider. Analyze the provided image and describe its content in detail to assist with student queries. Provide clear, concise, and accurate descriptions without emojis or unnecessary symbols.'
-                                },
-                                {
-                                    role: 'user',
-                                    content: [
-                                        { type: 'text', text: 'Describe the content of this image in detail.' },
-                                        { type: 'image_url', image_url: { url: `data:${file.type};base64,${base64Data}` } }
-                                    ]
-                                }
-                            ]
-                        })
-                    });
-                    const result = await response.json();
-                    if (result.error) {
-                        console.error('Image processing error:', result.error);
-                        return 'Image processing failed';
-                    }
-                    return result.choices?.[0]?.message?.content || 'Image processing failed';
-                } else if (file.type === 'application/pdf') {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-                    let text = '';
-                    for (let i = 1; i <= pdf.numPages; i++) {
-                        const page = await pdf.getPage(i);
-                        const content = await page.getTextContent();
-                        text += content.items.map(item => item.str).join(' ') + ' ';
-                    }
-                    return text || 'PDF content extraction failed';
-                } else if (file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const result = await mammoth.extractRawText({ arrayBuffer });
-                    return result.value || 'Document content extraction failed';
-                } else if (file.type === 'text/plain') {
-                    return new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = (e) => resolve(e.target.result);
-                        reader.onerror = () => resolve('Text file reading failed');
-                        reader.readAsText(file);
-                    });
-                }
-            } catch (error) {
-                console.error('File processing error:', error);
-                return null;
-            }
-            return null;
-        }
-
-        async function getEmbedding(text) {
-            try {
-                const response = await fetch(EMBEDDING_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': 'https://helper-srm.com',
-                        'X-Title': 'HELPER GPT'
-                    },
-                    body: JSON.stringify({
-                        model: EMBEDDING_MODEL,
-                        input: text
-                    })
-                });
-                const result = await response.json();
-                if (result.error) {
-                    console.error('Embedding error:', result.error);
-                    return [];
-                }
-                return result.data?.[0]?.embedding || [];
-            } catch (error) {
-                console.error('Embedding error:', error);
-                return [];
-            }
-        }
-
-        function cosineSimilarity(vecA, vecB) {
-            if (!vecA.length || !vecB.length) return 0;
-            const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
-            const normA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
-            const normB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
-            return normA * normB ? dotProduct / (normA * normB) : 0;
-        }
-
-        async function retrieveDocuments(query) {
-            const queryEmbedding = await getEmbedding(query);
-            return documents
-                .map(doc => ({ ...doc, score: cosineSimilarity(queryEmbedding, doc.embedding) }))
-                .filter(doc => doc.score > 0.5)
-                .sort((a, b) => b.score - a.score)
-                .slice(0, 3);
-        }
-
-        async function sendMessage() {
-            const chatInput = document.getElementById('chatInput');
-            const messageText = chatInput.value.trim();
-            if (!messageText) return;
-
-            const userMessage = document.createElement('div');
-            userMessage.className = 'message user-message';
-            userMessage.innerHTML = `
+            // Add bot response with formatted content
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = `
                 <div class="message-content">
-                    <div class="message-text">${messageText}</div>
+                    <div class="message-text">${formatResponse(reply)}</div>
                     <div class="message-time">${new Date().toLocaleTimeString()}</div>
                 </div>
             `;
-            chatMessages.appendChild(userMessage);
-
-            const thinkingIndicator = document.createElement('div');
-            thinkingIndicator.className = 'thinking-indicator';
-            thinkingIndicator.innerHTML = `
-                <div class="thinking-spinner">
-                    <span class="thinking-dot"></span>
-                    <span class="thinking-dot"></span>
-                    <span class="thinking-dot"></span>
-                </div>
-            `;
-            chatMessages.appendChild(thinkingIndicator);
+            chatMessages.appendChild(botMessage);
+            
+            // Add copy buttons to code blocks
+            addCopyButtons(botMessage);
+            
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            sendBtn.disabled = true;
-            sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        } catch (error) {
+            console.error('Generation error:', error);
+            thinkingIndicator.remove();
+            
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = `
+                <div class="message-content">
+                    <div class="message-text">Sorry, I encountered an error while processing your request. Please try again.</div>
+                    <div class="message-time">${new Date().toLocaleTimeString()}</div>
+                </div>
+            `;
+            chatMessages.appendChild(botMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-            try {
-                const relevantDocs = await retrieveDocuments(messageText);
+        // Re-enable send button
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+        chatInput.value = '';
+    }
 
-                const messages = [
-                    {
-                        role: 'system',
-                        content: `You are HELPER GPT, a personal tutor and assistance provider powered by Meta Llama 3.2 11B Vision Instruct. Provide clear, concise, and accurate responses tailored for students. Solve math and science problems with step-by-step explanations. Analyze images and documents to answer related questions. Summarize topics clearly and explain complex concepts in detail. Assist with homework, assignments, projects, and coding tasks. Avoid emojis, markdown, and unnecessary symbols. Use context from uploaded materials if available, otherwise rely on general knowledge.`
-                    },
-                    {
-                        role: 'user',
-                        content: messageText + (relevantDocs.length > 0 ? `\n\nContext from uploaded materials:\n${relevantDocs.map(doc => doc.content).join('\n\n')}` : '')
-                    }
-                ];
+    async function handleKeyDown(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage();
+        }
+    }
 
-                relevantDocs.forEach(doc => {
-                    if (doc.base64) {
-                        messages.push({
-                            role: 'user',
-                            content: [
-                                { type: 'text', text: 'This is an image from the study materials.' },
-                                { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${doc.base64}` } }
-                            ]
-                        });
-                    }
-                });
+    function insertSuggestion(text) {
+        const chatInput = document.getElementById('chatInput');
+        chatInput.value = text;
+        chatInput.focus();
+    }
 
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': 'https://helper-srm.com',
-                        'X-Title': 'HELPER GPT'
-                    },
-                    body: JSON.stringify({
-                        model: MODEL,
-                        messages,
-                        max_tokens: 500,
-                        temperature: 0.6,
-                        top_p: 0.95
-                    })
-                });
+    // Auto-resize textarea
+    const chatInput = document.getElementById('chatInput');
+    chatInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
 
-                const data = await response.json();
-                const reply = data.choices?.[0]?.message?.content || 'No response generated.';
-
-                thinkingIndicator.remove();
-
-                const botMessage = document.createElement('div');
-                botMessage.className = 'message bot-message';
-                botMessage.innerHTML = `
-                    <div class="message-content">
-                        <div class="message-text">${reply}</div>
-                        <div class="message-time">${new Date().toLocaleTimeString()}</div>
-                    </div>
-                `;
-                chatMessages.appendChild(botMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            } catch (error) {
-                console.error('Generation error:', error);
-                thinkingIndicator.remove();
-                const botMessage = document.createElement('div');
-                botMessage.className = 'message bot-message';
-                botMessage.innerHTML = `
-                    <div class="message-content">
-                        <div class="message-text">Sorry, an error occurred while generating the response. Please try again.</div>
-                        <div class="message-time">${new Date().toLocaleTimeString()}</div>
-                    </div>
-                `;
-                chatMessages.appendChild(botMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Format response text with enhanced styling
+    function formatResponse(text) {
+        // Escape HTML first
+        text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        
+        // Format code blocks (```code```)
+        text = text.replace(/```(\w+)?\n?([\s\S]*?)```/g, (match, lang, code) => {
+            return `<pre><code>${code.trim()}</code></pre>`;
+        });
+        
+        // Format inline code (`code`)
+        text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+        
+        // Format bold text (**text**)
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // Format italic text (*text*)
+        text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        
+        // Format headers (## Header) - order matters for replacement
+        text = text.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+        text = text.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+        text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+        
+        // Format step-by-step solutions
+        if (text.includes('Step ') || text.includes('step ')) {
+            text = text.replace(/(Step \d+:|step \d+:)/gi, '<span class="step-number">$1</span>');
+        }
+        
+        // Format mathematical expressions (wrap in math class)
+        // Assuming your backend will send actual LaTeX if needed, otherwise this is a simple visual wrapper
+        text = text.replace(/(\$.*?\$)/g, '<span class="math-expression">$1</span>');
+        
+        // Format lists (before paragraphs to avoid double wrapping)
+        const listItemsRegex = /^(?:[*-]|\d+\.)\s+(.*(?:[\r\n](?![*-]|\d+\.)\s+.*)*)/gm;
+        const tempLists = [];
+        text = text.replace(listItemsRegex, (match, content) => {
+            const marker = match.match(/^(?:[*-]|\d+\.)/)[0];
+            const type = marker.includes('*') || marker.includes('-') ? 'ul' : 'ol';
+            const listItem = `<li>${content.trim()}</li>`;
+            
+            if (tempLists.length > 0 && tempLists[tempLists.length - 1].type === type) {
+                tempLists[tempLists.length - 1].items.push(listItem);
+            } else {
+                tempLists.push({ type, items: [listItem] });
             }
+            return 'TEMP_LIST_PLACEHOLDER_' + (tempLists.length - 1);
+        });
 
-            sendBtn.disabled = false;
-            sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
-            chatInput.value = '';
-        }
-
-        async function handleKeyDown(event) {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                sendMessage();
+        tempLists.forEach((list, index) => {
+            text = text.replace('TEMP_LIST_PLACEHOLDER_' + index, `<${list.type}>${list.items.join('')}</${list.type}>`);
+        });
+        
+        // Format paragraphs (after lists and other block elements)
+        text = text.split('\n\n').map(paragraph => {
+            if (paragraph.trim() === '' || paragraph.startsWith('<h') || paragraph.startsWith('<pre') || paragraph.startsWith('<ul') || paragraph.startsWith('<ol') || paragraph.startsWith('<blockquote') || paragraph.startsWith('<div')) {
+                return paragraph; // Don't wrap already formatted blocks or empty lines
             }
-        }
+            // Handle single newlines as <br> within a paragraph, double newlines create new paragraphs
+            return `<p>${paragraph.replace(/\n/g, '<br>')}</p>`;
+        }).join('');
+        
+        // Clean up empty paragraphs
+        text = text.replace(/<p><\/p>/g, '').replace(/<p>\s*<\/p>/g, '');
+        
+        // Format blockquotes (> text)
+        text = text.replace(/^&gt;\s+(.*)$/gm, '<blockquote>$1</blockquote>');
+        
+        // Highlight important terms (this should be after initial escaping, but before final HTML parsing)
+        text = text.replace(/\b(important|note|warning|remember|key point)\b/gi, '<span class="highlight">$1</span>');
+        
+        return text;
+    }
 
-        function insertSuggestion(text) {
-            const chatInput = document.getElementById('chatInput');
-            chatInput.value = text;
-            chatInput.focus();
-        }
-    </script>
+    // Add copy buttons to code blocks
+    function addCopyButtons(messageElement) {
+        const codeBlocks = messageElement.querySelectorAll('pre');
+        codeBlocks.forEach(block => {
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+            copyBtn.title = 'Copy code';
+            copyBtn.onclick = () => {
+                const code = block.querySelector('code').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                    }, 2000);
+                });
+            };
+            block.appendChild(copyBtn);
+        });
+    }
+</script>
 </body>
 </html>
